@@ -105,8 +105,15 @@ class Check extends Command
 
         $callback = Str::parseCallback($action['uses']);
 
-        // todo: check controllers with __invoke method
-        if (!is_callable([$callback[0], $callback[1]])) {
+        if (count($callback) < 2) {
+            $this->dontCallable[] = $this->getRouteOptions($route);
+
+            return;
+        }
+
+        $controller = $this->container->make($callback[0]);
+
+        if (!is_callable([$controller, $callback[1]])) {
             $this->dontCallable[] = $this->getRouteOptions($route);
         }
     }
