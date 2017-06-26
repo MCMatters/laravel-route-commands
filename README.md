@@ -5,7 +5,7 @@ Package with laravel route commands.
 ### Installation
 
 ```bash
-composer require mcmatters/laravel-factory-generators
+composer require mcmatters/laravel-route-commands
 ```
 
 Include the service provider within your `config/app.php` file.
