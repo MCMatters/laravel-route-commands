@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace McMatters\LaravelRouteCommands;
+namespace McMatters\RouteCommands;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use McMatters\LaravelRouteCommands\Console\Commands\Check;
+use McMatters\RouteCommands\Console\Commands\Check;
 
 /**
  * Class ServiceProvider
  *
- * @package McMatters\LaravelRouteCommands
+ * @package McMatters\RouteCommands
  */
 class ServiceProvider extends BaseServiceProvider
 {

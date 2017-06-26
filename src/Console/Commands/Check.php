@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace McMatters\LaravelRouteCommands\Console\Commands;
+namespace McMatters\RouteCommands\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 /**
  * Class Check
  *
- * @package McMatters\LaravelRouteCommands\Console\Commands
+ * @package McMatters\RouteCommands\Console\Commands
  */
 class Check extends Command
 {
