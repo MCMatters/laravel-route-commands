@@ -157,7 +157,7 @@ class Check extends Command
     protected function outputIssues()
     {
         if (empty($this->dontCallable) && empty($this->duplicatedNames)) {
-            $this->output->success('There are no problem.');
+            $this->output->success('There are no problems.');
 
             return;
         }

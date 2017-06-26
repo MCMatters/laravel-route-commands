@@ -21,3 +21,4 @@ Include the service provider within your `config/app.php` file.
 Available commands:
 
 * `php artisan route:check` — checks all routes for existing the methods in controller and unique route names.
+* `php artisan route:export` — export all routes to json or xml file.
