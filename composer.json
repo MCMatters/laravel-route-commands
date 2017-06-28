@@ -8,9 +8,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.*",
-        "illuminate/routing": "5.*",
-        "illuminate/console": "5.*"
+        "php": ">=7.0",
+        "illuminate/support": "^5.2",
+        "illuminate/routing": "^5.2",
+        "illuminate/console": "^5.2"
     },
     "autoload": {
         "psr-4": {

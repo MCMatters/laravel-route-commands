@@ -47,7 +47,7 @@ class Export extends Command
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function fire()
     {
@@ -61,7 +61,7 @@ class Export extends Command
     /**
      * @param array $data
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function export(array $data)
     {
@@ -142,7 +142,7 @@ class Export extends Command
     /**
      * @param string $type
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function checkType(string $type)
     {
