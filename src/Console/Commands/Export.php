@@ -69,7 +69,10 @@ class Export extends Command
         $this->checkType($type);
 
         $file = $this->option('name') ?: 'routes';
-        $path = rtrim($this->option('path') ?: storage_path('app'), '/');
+        $path = rtrim(
+            $this->option('path') ?: $this->getLaravel()->storagePath().'/app',
+            '/'
+        );
         $path .= "/{$file}.{$type}";
 
         $method = 'to'.ucfirst($type);
