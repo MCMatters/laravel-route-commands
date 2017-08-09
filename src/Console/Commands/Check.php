@@ -67,9 +67,9 @@ class Check extends Command
     }
 
     /**
-     * Run the command.
+     * @return int
      */
-    public function fire()
+    public function handle(): int
     {
         /** @var Route $route */
         foreach ($this->router->getRoutes() as $route) {
@@ -78,6 +78,8 @@ class Check extends Command
         }
 
         $this->outputIssues();
+
+        return $this->returnCode();
     }
 
     /**
@@ -156,7 +158,7 @@ class Check extends Command
      */
     protected function outputIssues()
     {
-        if (empty($this->dontCallable) && empty($this->duplicatedNames)) {
+        if (!$this->hasErrors()) {
             $this->output->success('There are no problems.');
 
             return;
@@ -171,5 +173,25 @@ class Check extends Command
             $this->output->note('Duplicated names:');
             $this->table($this->headers, $this->duplicatedNames);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasErrors(): bool
+    {
+        return !empty($this->dontCallable) || !empty($this->duplicatedNames);
+    }
+
+    /**
+     * @return int
+     */
+    protected function returnCode(): int
+    {
+        if ($this->hasErrors()) {
+            return 1;
+        }
+
+        return 0;
     }
 }

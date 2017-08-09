@@ -46,16 +46,20 @@ class Export extends Command
     }
 
     /**
-     * @return void
+     * @return int
      * @throws InvalidArgumentException
      */
-    public function fire()
+    public function handle(): int
     {
         if (count($this->routes) === 0) {
             $this->error('Your application does not have any routes.');
-        } else {
-            $this->export($this->getRoutes());
+
+            return 1;
         }
+
+        $this->export($this->getRoutes());
+
+        return 0;
     }
 
     /**
