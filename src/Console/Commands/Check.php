@@ -10,6 +10,10 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 
+use function count, in_array, is_callable, is_string;
+
+use const null, true;
+
 /**
  * Class Check
  *
@@ -23,12 +27,12 @@ class Check extends Command
     protected $signature = 'route:check';
 
     /**
-     * @var Router
+     * @var \Illuminate\Routing\Router
      */
     protected $router;
 
     /**
-     * @var Container
+     * @var \Illuminate\Container\Container
      */
     protected $container;
 
@@ -55,8 +59,8 @@ class Check extends Command
     /**
      * Check constructor.
      *
-     * @param Router $router
-     * @param Container $container
+     * @param \Illuminate\Routing\Router $router
+     * @param \Illuminate\Container\Container $container
      */
     public function __construct(Router $router, Container $container)
     {
@@ -71,7 +75,7 @@ class Check extends Command
      */
     public function handle(): int
     {
-        /** @var Route $route */
+        /** @var \Illuminate\Routing\Route $route */
         foreach ($this->router->getRoutes() as $route) {
             $this->checkCallable($route);
             $this->checkUniqueNames($route);
@@ -83,7 +87,7 @@ class Check extends Command
     }
 
     /**
-     * @param Route $route
+     * @param \Illuminate\Routing\Route $route
      *
      * @return void
      */
@@ -121,7 +125,9 @@ class Check extends Command
     }
 
     /**
-     * @param Route $route
+     * @param \Illuminate\Routing\Route $route
+     *
+     * @return void
      */
     protected function checkUniqueNames(Route $route)
     {
@@ -139,7 +145,7 @@ class Check extends Command
     }
 
     /**
-     * @param Route $route
+     * @param \Illuminate\Routing\Route $route
      *
      * @return array
      */

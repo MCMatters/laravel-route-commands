@@ -5,12 +5,15 @@ declare(strict_types = 1);
 namespace McMatters\RouteCommands\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use SimpleXMLElement;
+
+use function array_filter, array_intersect, array_map, count, explode, json_encode, rtrim, ucfirst;
+
+use const true;
 
 /**
  * Class Export
@@ -36,7 +39,7 @@ class Export extends Command
     /**
      * Export constructor.
      *
-     * @param Router $router
+     * @param \Illuminate\Routing\Router $router
      */
     public function __construct(Router $router)
     {
@@ -47,7 +50,8 @@ class Export extends Command
 
     /**
      * @return int
-     * @throws InvalidArgumentException
+     *
+     * @throws \InvalidArgumentException
      */
     public function handle(): int
     {
@@ -65,12 +69,13 @@ class Export extends Command
     /**
      * @param array $data
      *
-     * @throws InvalidArgumentException
+     * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     protected function export(array $data)
     {
-        $type = $this->option('type') ?: 'json';
-        $this->checkType($type);
+        $this->checkType($type = $this->option('type') ?: 'json');
 
         $file = $this->option('name') ?: 'routes';
         $path = rtrim(
@@ -90,29 +95,20 @@ class Export extends Command
     protected function getRoutes(): array
     {
         $routes = [];
-        $optionMethods = array_filter(explode(',', $this->option('methods') ?? ''));
+        $optionMethods = array_map(
+            static function ($method) {
+                return Str::upper($method);
+            },
+            array_filter(explode(',', $this->option('methods') ?? ''))
+        );
 
-        /** @var Route $route */
+        /** @var \Illuminate\Routing\Route $route */
         foreach ($this->routes as $route) {
-            if ($optionMethods) {
-                $skip = true;
-                $methods = Str::lower(implode('|', $route->methods()));
-
-                foreach ($optionMethods as $method) {
-                    if (preg_match("/\|?{$method}\|?/", $methods)) {
-                        $skip = false;
-                        break;
-                    }
-                }
-
-                if ($skip) {
-                    continue;
-                }
+            if ($optionMethods && empty(array_intersect($route->methods(), $optionMethods))) {
+                continue;
             }
 
-            $uri = $route->uri();
-
-            if (!in_array($uri, $routes, true)) {
+            if (!in_array($uri = $route->uri(), $routes, true)) {
                 $routes[] = $uri;
             }
         }
@@ -149,7 +145,9 @@ class Export extends Command
     /**
      * @param string $type
      *
-     * @throws InvalidArgumentException
+     * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     protected function checkType(string $type)
     {

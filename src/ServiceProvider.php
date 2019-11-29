@@ -23,6 +23,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton('command.route.check', function ($app) {
             return new Check($app['router'], $app);
         });
+
         $this->app->singleton('command.route.export', function ($app) {
             return new Export($app['router']);
         });
