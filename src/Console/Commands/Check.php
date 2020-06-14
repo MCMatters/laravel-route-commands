@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace McMatters\RouteCommands\Console\Commands;
 
@@ -95,7 +95,7 @@ class Check extends Command
     {
         $action = $route->getAction();
 
-        if (null === $action['uses']) {
+        if (null === ($action['uses'] ?? null)) {
             $this->dontCallable[] = $route;
 
             return;

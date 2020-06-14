@@ -9,9 +9,9 @@
     ],
     "require": {
         "php": ">=7.0",
-        "illuminate/support": ">=5.2",
-        "illuminate/routing": ">=5.2",
-        "illuminate/console": ">=5.2"
+        "illuminate/support": "^5.2 || 6.* || 7.*",
+        "illuminate/routing": "^5.2 || 6.* || 7.*",
+        "illuminate/console": "^5.2 || 6.* || 7.*"
     },
     "autoload": {
         "psr-4": {
